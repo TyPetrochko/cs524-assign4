@@ -3,18 +3,20 @@
 #include <math.h>
 #include "timing.h"
 
+#define PRINT_VECTOR(v) (printf("\t(%.8e, %.8e, %.8e)\n", v.x, v.y, v.z))
+
 typedef struct vector {
-  float x, y, z;
+  double x, y, z;
 } vector;
 
 struct body {
-  float mass;
+  double mass;
   vector position;
   vector velocity;
 };
 
-float distance(vector a, vector b){
-  float dx, dy, dz;
+double distance(vector a, vector b){
+  double dx, dy, dz;
 
   dx = b.x - a.x;
   dy = b.y - a.y;
@@ -27,7 +29,7 @@ float distance(vector a, vector b){
 vector force(struct body a, struct body b){
   vector toReturn;
 
-  float dist = distance(a.position, b.position);
+  double dist = distance(a.position, b.position);
 
   toReturn.x = (a.mass * b.mass * (b.position.x - a.position.x))/(dist * dist * dist);
   toReturn.y = (a.mass * b.mass * (b.position.y - a.position.y))/(dist * dist * dist);
@@ -73,7 +75,7 @@ vector stepCoords(struct body a, vector forc, float DT){
 
 void step(int N, float DT, double wctime, struct body *bodies){
   int i, j;
-  float dist;
+  double dist;
   vector forc, accel, veloc;
 
   vector *newCoords = calloc(N, sizeof(vector));
@@ -111,24 +113,21 @@ vector calcCenterOfMass(struct body *bodies, int N){
   toReturn.z = 0.0;
 
   numerator = 0.0; denominator = 0.0;
+  for(i = 0; i < N; i++) denominator += bodies[i].mass;
   for(i = 0; i < N; i++){
     numerator += (bodies[i].mass * bodies[i].position.x);
-    denominator += bodies[i].mass;
-    printf("X numerator %lf, denominator %lf\n", numerator, denominator);
   }
   toReturn.x = numerator / denominator;
   
-  numerator = 0; denominator = 0;
+  numerator = 0;
   for(i = 0; i < N; i++){
     numerator += (bodies[i].mass * bodies[i].position.y);
-    denominator += bodies[i].mass;
   }
   toReturn.y = numerator / denominator;
   
-  numerator = 0; denominator = 0;
+  numerator = 0;
   for(i = 0; i < N; i++){
     numerator += (bodies[i].mass * bodies[i].position.z);
-    denominator += bodies[i].mass;
   }
   toReturn.z = numerator / denominator;
   return toReturn;
@@ -148,9 +147,9 @@ vector calcAvgVelocity(struct body *bodies, int N){
     toReturn.z += bodies[i].velocity.z;
   }
 
-  toReturn.x = toReturn.x / (float) N;
-  toReturn.y = toReturn.y / (float) N;
-  toReturn.z = toReturn.z / (float) N;
+  toReturn.x = toReturn.x / (double) N;
+  toReturn.y = toReturn.y / (double) N;
+  toReturn.z = toReturn.z / (double) N;
 
   return toReturn;
 }
@@ -165,8 +164,8 @@ void postUpdate(int step, int N, double wctime, float DT, struct body *bodies){
   avgVelocity = calcAvgVelocity(bodies, N); 
 
   printf("Conditions after timestep %d (time = %f):\n\n", step, step * DT);
-  printf("\tCenter of Mass: (%f, %f, %f)\n", centerOfMass.x, centerOfMass.y, centerOfMass.z);
-  printf("\tAverage Velocity: (%f, %f, %f)\n\n\n", avgVelocity.x, avgVelocity.y, avgVelocity.z);
+  printf("\tCenter of Mass: (%e, %e, %e)\n", centerOfMass.x, centerOfMass.y, centerOfMass.z);
+  printf("\tAverage Velocity: (%e, %e, %e)\n\n\n", avgVelocity.x, avgVelocity.y, avgVelocity.z);
 }
 
 int main (int argc, char **argv){
@@ -181,13 +180,13 @@ int main (int argc, char **argv){
   bodies = calloc(N, sizeof(struct body));
 
   for(i = 0; i < N; i++){
-    scanf("%f\n", &(bodies[i].mass));
+    scanf("%lf\n", &(bodies[i].mass));
   }
   for(i = 0; i < N; i++){
-    scanf("%f %f %f\n", &(bodies[i].position.x), &(bodies[i].position.y), &(bodies[i].position.z));
+    scanf("%lf %lf %lf\n", &(bodies[i].position.x), &(bodies[i].position.y), &(bodies[i].position.z)); 
   }
   for(i = 0; i < N; i++){
-    scanf("%f %f %f\n", &(bodies[i].velocity.x), &(bodies[i].velocity.y), &(bodies[i].velocity.z));
+    scanf("%lf %lf %lf\n", &(bodies[i].velocity.x), &(bodies[i].velocity.y), &(bodies[i].velocity.z)); 
   }
 
   timing(&wctime, &cputime);
