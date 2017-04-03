@@ -1,1 +1,114 @@
-D: 32, K: 130, DT: 0.031250
+X numerator -0.101349, denominator 0.062500
+X numerator -0.210960, denominator 0.125000
+X numerator -0.341826, denominator 0.187500
+X numerator -0.393963, denominator 0.250000
+X numerator -0.671988, denominator 0.312500
+X numerator -0.799509, denominator 0.375000
+X numerator -0.906761, denominator 0.437500
+X numerator -1.019847, denominator 0.500000
+X numerator -1.179983, denominator 0.562500
+X numerator -1.336843, denominator 0.625000
+X numerator -1.474073, denominator 0.687500
+X numerator -1.587017, denominator 0.750000
+X numerator -1.628995, denominator 0.812500
+X numerator -1.776431, denominator 0.875000
+X numerator -1.910471, denominator 0.937500
+X numerator -2.000000, denominator 1.000000
+X numerator -1.863635, denominator 1.062500
+X numerator -1.566887, denominator 1.125000
+X numerator -1.445367, denominator 1.187500
+X numerator -1.233410, denominator 1.250000
+X numerator -1.151544, denominator 1.312500
+X numerator -1.022624, denominator 1.375000
+X numerator -0.931825, denominator 1.437500
+X numerator -0.895496, denominator 1.500000
+X numerator -0.806323, denominator 1.562500
+X numerator -0.743164, denominator 1.625000
+X numerator -0.612412, denominator 1.687500
+X numerator -0.466632, denominator 1.750000
+X numerator -0.342020, denominator 1.812500
+X numerator -0.215462, denominator 1.875000
+X numerator -0.127261, denominator 1.937500
+X numerator -0.000000, denominator 2.000000
+Conditions after timestep 0 (time = 0.000000):
+
+	Center of Mass: (-0.000000, 0.000000, -0.000000)
+	Average Velocity: (0.000000, 0.000000, -0.000000)
+
+
+X numerator 0.090157, denominator 0.062500
+X numerator 0.163639, denominator 0.125000
+X numerator 0.126312, denominator 0.187500
+X numerator 0.172676, denominator 0.250000
+X numerator 0.062161, denominator 0.312500
+X numerator -0.182019, denominator 0.375000
+X numerator 0.009709, denominator 0.437500
+X numerator 0.268164, denominator 0.500000
+X numerator 0.160859, denominator 0.562500
+X numerator 0.120440, denominator 0.625000
+X numerator 0.036260, denominator 0.687500
+X numerator -0.102135, denominator 0.750000
+X numerator -0.113436, denominator 0.812500
+X numerator -0.059280, denominator 0.875000
+X numerator -0.032198, denominator 0.937500
+X numerator -0.061048, denominator 1.000000
+X numerator 0.003904, denominator 1.062500
+X numerator 0.206193, denominator 1.125000
+X numerator 0.051720, denominator 1.187500
+X numerator 0.212390, denominator 1.250000
+X numerator -0.010904, denominator 1.312500
+X numerator 0.052308, denominator 1.375000
+X numerator 0.027262, denominator 1.437500
+X numerator -0.055869, denominator 1.500000
+X numerator -0.110076, denominator 1.562500
+X numerator -0.189037, denominator 1.625000
+X numerator -0.268497, denominator 1.687500
+X numerator -0.127061, denominator 1.750000
+X numerator -0.028394, denominator 1.812500
+X numerator -0.082831, denominator 1.875000
+X numerator -0.185915, denominator 1.937500
+X numerator -0.000000, denominator 2.000000
+Conditions after timestep 128 (time = 4.000000):
+
+	Center of Mass: (-0.000000, 0.000000, 0.000000)
+	Average Velocity: (-0.000000, -0.000000, -0.000000)
+
+
+X numerator 0.093134, denominator 0.062500
+X numerator 0.169472, denominator 0.125000
+X numerator 0.133637, denominator 0.187500
+X numerator 0.181534, denominator 0.250000
+X numerator 0.073751, denominator 0.312500
+X numerator -0.172152, denominator 0.375000
+X numerator 0.024173, denominator 0.437500
+X numerator 0.288354, denominator 0.500000
+X numerator 0.181933, denominator 0.562500
+X numerator 0.143369, denominator 0.625000
+X numerator 0.060088, denominator 0.687500
+X numerator -0.078618, denominator 0.750000
+X numerator -0.089437, denominator 0.812500
+X numerator -0.032124, denominator 0.875000
+X numerator -0.002516, denominator 0.937500
+X numerator -0.030396, denominator 1.000000
+X numerator 0.033405, denominator 1.062500
+X numerator 0.234074, denominator 1.125000
+X numerator 0.075323, denominator 1.187500
+X numerator 0.235116, denominator 1.250000
+X numerator 0.007115, denominator 1.312500
+X numerator 0.069277, denominator 1.375000
+X numerator 0.042419, denominator 1.437500
+X numerator -0.042570, denominator 1.500000
+X numerator -0.099008, denominator 1.562500
+X numerator -0.180183, denominator 1.625000
+X numerator -0.262922, denominator 1.687500
+X numerator -0.121600, denominator 1.750000
+X numerator -0.023419, denominator 1.812500
+X numerator -0.080680, denominator 1.875000
+X numerator -0.186739, denominator 1.937500
+X numerator -0.000000, denominator 2.000000
+Conditions after timestep 130 (time = 4.062500):
+
+	Center of Mass: (-0.000000, 0.000000, 0.000000)
+	Average Velocity: (-0.000000, -0.000000, -0.000000)
+
+

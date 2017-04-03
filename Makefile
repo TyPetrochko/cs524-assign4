@@ -17,3 +17,8 @@ fserial: fserial.o /home/fas/hpcprog/ahs3/cpsc424/utils/timing/timing.o
 
 clean:
 	rm -f serial fserial *.o
+
+run:
+	./build.sh
+	./run.sh
+
