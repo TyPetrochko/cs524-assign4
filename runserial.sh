@@ -6,7 +6,7 @@
 # cd $PBS_O_WORKDIR
 
 module load Langs/Intel/15
-
+module load Langs/Intel/15 MPI/OpenMPI/1.8.6-intel15
 # ./serial < /home/fas/hpcprog/ahs3/cpsc424/assignment4/data/actualdata1 > ./serial_data1.txt
 # ./serial < /home/fas/hpcprog/ahs3/cpsc424/assignment4/data/actualdata2 > ./serial_data2.txt
 # ./serial < /home/fas/hpcprog/ahs3/cpsc424/assignment4/data/actualdata3 > ./serial_data3.txt
