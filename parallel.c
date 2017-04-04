@@ -169,6 +169,7 @@ double DT;
 
 int main(int argc, char **argv) {
   int size, rank;
+  double wctime, wctime_end, cputime;
   MPI_Init(&argc,&argv);
 
   MPI_Comm_size(MPI_COMM_WORLD,&size);
@@ -179,8 +180,11 @@ int main(int argc, char **argv) {
   
   if (rank == ROOT) {
     tests();
+    timing(&wctime, &cputime);
     master_setup();
     worker_process(rank);
+    timing(&wctime_end, &cputime);
+    printf("Time for %d timesteps with %d bodies: %lf\n", K, N, wctime_end - wctime);
   }else{
     worker_receive(rank);
     worker_process(rank);
@@ -341,7 +345,7 @@ void postUpdate(int rank, int round){
   MPI_Reduce(&denominator, &denominator_total, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD);
   
   if(rank == ROOT){
-    printf("Conditions after timestep %d:\n\n", round);
+    printf("Conditions after timestep %d (time = %e):\n\n", round, round * DT);
     printf("\tCenter of Mass: (%e, %e, %e)\n", 
         numerator_x_total / denominator_total, numerator_y_total / denominator_total, numerator_z_total / denominator_total);
     printf("\tAverage Velocity: (%e, %e, %e)\n\n\n", 
@@ -350,7 +354,7 @@ void postUpdate(int rank, int round){
     for(i = 0; i < 8; i++){
       printf("%d, ", quadrantList[i]);
     }
-    printf("\n");
+    printf("\n\n\n");
   }
 }
 

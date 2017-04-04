@@ -173,7 +173,7 @@ int main (int argc, char **argv){
   double DT;
   struct body *bodies;
 
-  double wctime, cputime;
+  double wctime, wctime_end, cputime;
 
   scanf("%d\n%d\n%lf", &N, &K, &DT);
  
@@ -197,6 +197,8 @@ int main (int argc, char **argv){
     step(N, DT, wctime, bodies);
   }
   postUpdate(i, N, wctime, DT, bodies);
+  timing(&wctime_end, &cputime);
+  printf("Time for %d timesteps with %d bodies: %lf\n", K, N, wctime_end - wctime);
   return 0;
 }
 
