@@ -1,0 +1,82 @@
+Conditions after timestep 0 (time = 0.000000e+00):
+
+        Center of Mass: (-2.018758e-08, 1.012155e-08, -3.957608e-09)
+        Average Velocity: (-5.540197e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 828, 790, 814, 769, 802, 808, 780, 809,
+
+
+Conditions after timestep 128 (time = 4.000000e+00):
+
+        Center of Mass: (-4.234837e-08, 2.443709e-08, 2.578647e-08)
+        Average Velocity: (-5.540197e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 834, 889, 754, 802, 775, 775, 808, 763,
+
+
+Conditions after timestep 256 (time = 8.000000e+00):
+
+        Center of Mass: (-6.450916e-08, 3.875264e-08, 5.553055e-08)
+        Average Velocity: (-5.540198e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 400, 1219, 398, 1220, 400, 1169, 425, 1169,
+
+
+Conditions after timestep 384 (time = 1.200000e+01):
+
+        Center of Mass: (-8.666995e-08, 5.306819e-08, 8.527463e-08)
+        Average Velocity: (-5.540197e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 294, 1302, 275, 1305, 275, 1339, 308, 1302,
+
+
+Conditions after timestep 512 (time = 1.600000e+01):
+
+        Center of Mass: (-1.088307e-07, 6.738374e-08, 1.150187e-07)
+        Average Velocity: (-5.540197e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 224, 1345, 208, 1369, 189, 1437, 247, 1381,
+
+
+Conditions after timestep 640 (time = 2.000000e+01):
+
+        Center of Mass: (-1.309915e-07, 8.169929e-08, 1.447628e-07)
+        Average Velocity: (-5.540197e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 192, 1381, 176, 1323, 159, 1497, 190, 1482,
+
+
+Conditions after timestep 768 (time = 2.400000e+01):
+
+        Center of Mass: (-1.531523e-07, 9.601483e-08, 1.745069e-07)
+        Average Velocity: (-5.540197e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 169, 1399, 169, 1313, 162, 1501, 169, 1518,
+
+
+Conditions after timestep 896 (time = 2.800000e+01):
+
+        Center of Mass: (-1.753131e-07, 1.103304e-07, 2.042509e-07)
+        Average Velocity: (-5.540197e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 180, 1416, 156, 1293, 161, 1496, 184, 1514,
+
+
+Conditions after timestep 1024 (time = 3.200000e+01):
+
+        Center of Mass: (-1.974739e-07, 1.246459e-07, 2.339950e-07)
+        Average Velocity: (-5.540197e-09, 3.578887e-09, 7.436020e-09)
+
+
+        Quadrant breakdown (0-7): 196, 1389, 179, 1245, 169, 1495, 201, 1526,
+
+
+Time for 1024 timesteps with 6400 bodies: 251.359509
