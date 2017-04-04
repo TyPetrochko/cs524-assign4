@@ -1,0 +1,12 @@
+
+parallel:12878 terminated with signal 11 at PC=2ae05c2455a8 SP=7fff0bfe1010.  Backtrace:
+/apps/fas/MPI/OpenMPI/1.8.6-intel15/lib/libopen-pal.so.6(opal_memory_ptmalloc2_int_malloc+0x1328)[0x2ae05c2455a8]
+/apps/fas/MPI/OpenMPI/1.8.6-intel15/lib/libopen-pal.so.6(opal_memory_ptmalloc2_malloc+0x58)[0x2ae05c246f58]
+/apps/fas/MPI/OpenMPI/1.8.6-intel15/lib/libmpi.so.1(ompi_free_list_grow+0x8a)[0x2ae05a417e1a]
+/apps/fas/MPI/OpenMPI/1.8.6-intel15/lib/openmpi/mca_pml_cm.so(mca_pml_cm_irecv_init+0x14b)[0x2ae06067118b]
+/apps/fas/MPI/OpenMPI/1.8.6-intel15/lib/openmpi/mca_coll_tuned.so(ompi_coll_tuned_alltoall_intra_basic_linear+0x124)[0x2ae061b6bb24]
+/apps/fas/MPI/OpenMPI/1.8.6-intel15/lib/libmpi.so.1(MPI_Alltoall+0x7f)[0x2ae05a44698f]
+parallel[0x401b66]
+parallel[0x401660]
+/lib64/libc.so.6(__libc_start_main+0xfd)[0x39de21ed5d]
+parallel[0x400ca9]

@@ -1,0 +1,3 @@
+ - In serial.c, if(dist < 5.0) should be if(dist > 5.0) on line 92!!!
+ - Free all the things you calloc in parallel!
+ - Free everything you calloc in serial!

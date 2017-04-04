@@ -89,7 +89,7 @@ void step(int N, float DT, double wctime, struct body *bodies){
 
       dist = distance(bodies[i].position, bodies[j].position);
 
-      if(dist < 5.0) continue;
+      if(dist < 5.0) continue; // TODO this should be wrong
 
       forc = vecsum(forc, force(bodies[i], bodies[j]));
     }
