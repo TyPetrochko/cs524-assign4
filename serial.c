@@ -48,7 +48,7 @@ vector vecsum(vector a, vector b){
 }
 
 // get new velocity
-vector stepVelocity(struct body a, vector forc, float DT){
+vector stepVelocity(struct body a, vector forc, double DT){
   vector toReturn;
 
   toReturn.x = a.velocity.x + (DT * (forc.x / a.mass));
@@ -59,7 +59,7 @@ vector stepVelocity(struct body a, vector forc, float DT){
 }
 
 // get new coords
-vector stepCoords(struct body a, vector forc, float DT){
+vector stepCoords(struct body a, vector forc, double DT){
   vector avgVelocity, toReturn;
 
   avgVelocity.x = a.velocity.x + (0.5 * DT * (forc.x / a.mass));
@@ -73,7 +73,7 @@ vector stepCoords(struct body a, vector forc, float DT){
   return toReturn;
 }
 
-void step(int N, float DT, double wctime, struct body *bodies){
+void step(int N, double DT, double wctime, struct body *bodies){
   int i, j;
   double dist;
   vector forc, accel, veloc;
@@ -89,7 +89,7 @@ void step(int N, float DT, double wctime, struct body *bodies){
 
       dist = distance(bodies[i].position, bodies[j].position);
 
-      if(dist < 5.0) continue; // TODO this should be wrong
+      if(dist > 5.0) continue; // TODO this should be wrong
 
       forc = vecsum(forc, force(bodies[i], bodies[j]));
     }
@@ -154,7 +154,7 @@ vector calcAvgVelocity(struct body *bodies, int N){
   return toReturn;
 }
 
-void postUpdate(int step, int N, double wctime, float DT, struct body *bodies){
+void postUpdate(int step, int N, double wctime, double DT, struct body *bodies){
   vector centerOfMass, avgVelocity;
   double endtime, cputime;
 
@@ -170,12 +170,12 @@ void postUpdate(int step, int N, double wctime, float DT, struct body *bodies){
 
 int main (int argc, char **argv){
   int N, K, i;
-  float DT;
+  double DT;
   struct body *bodies;
 
   double wctime, cputime;
 
-  scanf("%d\n%d\n%f", &N, &K, &DT);
+  scanf("%d\n%d\n%lf", &N, &K, &DT);
  
   bodies = calloc(N, sizeof(struct body));
 

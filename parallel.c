@@ -8,6 +8,7 @@
 #include "mpi.h"
 
 #define ROOT 0
+#define DEBUG 0
 
 double LENGTH(double x, double y, double z){
   return (sqrt((x * x) + (y * y) + (z * z)));
@@ -214,7 +215,7 @@ void master_setup() {
   for(i = 0; i < N; i++){
     scanf("%lf %lf %lf\n", &(inputBodies[i].velocity_x), &(inputBodies[i].velocity_y), &(inputBodies[i].velocity_z)); 
   }
-  printf("Master done reading in bodies! N = %d\n", N);
+  if (DEBUG) printf("Master done reading in bodies! N = %d\n", N);
 
   // Part 2 - sort the array by assignment to processor! (must send basic info first)
 
@@ -243,7 +244,7 @@ void master_setup() {
         c++;
       }
     }
-    printf("Master sending %d bodies to processor %d\n", counts[i], i);
+    if(DEBUG) printf("Master sending %d bodies to processor %d\n", counts[i], i);
   }
 
   // quick sanity check!
@@ -285,16 +286,82 @@ void worker_receive(int rank){
 
   MPI_Scatterv(NULL, counts, offsets, body_type, bodies, counts[rank], body_type, ROOT, MPI_COMM_WORLD);
 
-  printf("Process %d received %d elements!\n", rank, counts[rank]);
+  if (DEBUG) printf("Process %d received %d elements!\n", rank, counts[rank]);
   for(int i = 0; i < counts[rank]; i++){
     // printf("\tProcess %d received element with coords (%e, %e, %e)\n", rank, bodies[i].position_x, bodies[i].position_y, bodies[i].position_z);
   }
   howManyWeHave = counts[rank];
 }
 
+void postUpdate(int rank, int round){
+  int i;
+  double numerator_x = 0.0;
+  double numerator_y = 0.0;
+  double numerator_z = 0.0;
+  
+  double numerator_x_total = 0.0;
+  double numerator_y_total = 0.0;
+  double numerator_z_total = 0.0;
+  
+  double numerator_x_velocity = 0.0;
+  double numerator_y_velocity = 0.0;
+  double numerator_z_velocity = 0.0;
+  
+  double numerator_x_total_velocity = 0.0;
+  double numerator_y_total_velocity = 0.0;
+  double numerator_z_total_velocity = 0.0;
+  
+  double denominator = 0.0;
+  double denominator_total = 0.0;
+
+  int quadrantList[8] = {0};
+
+  MPI_Gather(&howManyWeHave, 1, MPI_INT, quadrantList, 1, MPI_INT, ROOT, MPI_COMM_WORLD);
+
+  for(i = 0; i < howManyWeHave; i++){
+    numerator_x += bodies[i].mass * bodies[i].position_x;
+    numerator_y += bodies[i].mass * bodies[i].position_y;
+    numerator_z += bodies[i].mass * bodies[i].position_z;
+
+    numerator_x_velocity += bodies[i].velocity_x;
+    numerator_y_velocity += bodies[i].velocity_y;
+    numerator_z_velocity += bodies[i].velocity_z;
+
+    denominator += bodies[i].mass;
+  }
+
+  MPI_Reduce(&numerator_x, &numerator_x_total, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD);
+  MPI_Reduce(&numerator_y, &numerator_y_total, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD);
+  MPI_Reduce(&numerator_z, &numerator_z_total, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD);
+  
+  MPI_Reduce(&numerator_x_velocity, &numerator_x_total_velocity, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD);
+  MPI_Reduce(&numerator_y_velocity, &numerator_y_total_velocity, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD);
+  MPI_Reduce(&numerator_z_velocity, &numerator_z_total_velocity, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD);
+
+  MPI_Reduce(&denominator, &denominator_total, 1, MPI_DOUBLE, MPI_SUM, ROOT, MPI_COMM_WORLD);
+  
+  if(rank == ROOT){
+    printf("Conditions after timestep %d:\n\n", round);
+    printf("\tCenter of Mass: (%e, %e, %e)\n", 
+        numerator_x_total / denominator_total, numerator_y_total / denominator_total, numerator_z_total / denominator_total);
+    printf("\tAverage Velocity: (%e, %e, %e)\n\n\n", 
+        numerator_x_total_velocity / N, numerator_y_total_velocity / N, numerator_z_total_velocity / N);
+    printf("\tQuadrant breakdown (0-7): ");
+    for(i = 0; i < 8; i++){
+      printf("%d, ", quadrantList[i]);
+    }
+    printf("\n");
+  }
+}
+
 void worker_process(int rank){
   int round = 0;
   for(round = 0; round < K; round++){
+
+    // Part 0 - Post update if necessary!
+    if(round % 128 == 0){
+      postUpdate(rank, round);
+    }
 
     // Part 1 - Advertise to each neighbor how many bodies he'll be notified of!
     int i, j;
@@ -316,7 +383,7 @@ void worker_process(int rank){
         }
       }
 
-      printf("Processor %d is notifying processor %d of %d bodies!\n", rank, i, agentsToAdvertiseCounts[i]);
+      if(DEBUG) printf("Processor %d is notifying processor %d of %d bodies!\n", rank, i, agentsToAdvertiseCounts[i]);
     }
 
     int agentsToBeAdvertisedOf[8] = {0};
@@ -410,7 +477,7 @@ void worker_process(int rank){
     }
 
     for(i = 0; i < howManyWeHave; i++){
-      printf("\tProcessor %d is moving a body from x = %e to %e, velocity x = %e to %e\n", 
+      if(DEBUG) printf("\tProcessor %d is moving a body from x = %e to %e, velocity x = %e to %e\n", 
           rank, bodies[i].position_x, new_x[i], bodies[i].velocity_x, new_velocity_x[i]);
       bodies[i].position_x = new_x[i];
       bodies[i].position_y = new_y[i];
@@ -428,7 +495,7 @@ void worker_process(int rank){
 
     for(i = 0; i < howManyWeHave; i++){
       if(distToQuad(bodies[i], rank) != 0.0){
-        printf("Body at position (%e, %e, %e) left quadrant %d\n", bodies[i].position_x, bodies[i].position_y, bodies[i].position_z, rank);
+        if(DEBUG) printf("Body at position (%e, %e, %e) left quadrant %d\n", bodies[i].position_x, bodies[i].position_y, bodies[i].position_z, rank);
         bodiesToSend[numLost] = bodies[i];
         numLost++;
       }
@@ -441,7 +508,7 @@ void worker_process(int rank){
         bodies[index] = bodies[i];
         index++;
       }else{
-        printf("Body at position (%e, %e, %e) is being skipped over by processor %d\n",
+        if(DEBUG) printf("Body at position (%e, %e, %e) is being skipped over by processor %d\n",
             bodies[i].position_x, bodies[i].position_y, bodies[i].position_z, rank);
       }
     }
@@ -476,13 +543,14 @@ void worker_process(int rank){
 
     for(i = 0; i < send_offset_helper; i++){
       if(distToQuad(recvBuff[i], rank) == 0.0){
-        printf("Processor %d is adopting body with coordinates (%e, %e, %e)\n",
+        if(DEBUG) printf("Processor %d is adopting body with coordinates (%e, %e, %e)\n",
             rank, recvBuff[i].position_x, recvBuff[i].position_y, recvBuff[i].position_z);
         bodies[howManyWeHave] = recvBuff[i];
         howManyWeHave++;
       }
     }
   }
+  postUpdate(rank, round);
 }
 
 
@@ -501,5 +569,5 @@ void tests(){
   if(distToQuad(b, 6) != sqrt(27.0)) fprintf(stderr, "Failed test! DistToQuad failed attempt 7\n");
   if(distToQuad(b, 7) != sqrt(18.0)) fprintf(stderr, "Failed test! DistToQuad failed attempt 8\n");
 
-  printf("All tests complete!\n");
+  if(DEBUG) printf("All tests complete!\n");
 }

@@ -4,6 +4,8 @@ FC = ifort
 FFLAGS = -g -O3 -xHost -fno-alias
 MPICC = mpicc
 
+all: parallel serial
+
 parallel: parallel.o /home/fas/hpcprog/ahs3/cpsc424/utils/timing/timing.o
 	$(MPICC) -o $@ $(CFLAGS) $^
 

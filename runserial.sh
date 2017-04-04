@@ -8,5 +8,7 @@
 module load Langs/Intel/15
 
 ./serial < /home/fas/hpcprog/ahs3/cpsc424/assignment4/data/testdata1 > ./testdata1_c.out
+./serial < /home/fas/hpcprog/ahs3/cpsc424/assignment4/data/testdata2 > ./testdata2_c.out
+
 
 #./fserial < /home/fas/hpcprog/ahs3/cpsc424/assignment4/data/testdata1 > ./testdata1_f.out
