@@ -78,3 +78,5 @@ Conditions after timestep 1024 (time = 3.200000e+01):
 
         Quadrant breakdown (0-7): 196, 1389, 179, 1245, 169, 1495, 201, 1526,
 
+
+Time for 1024 timesteps with 6400 bodies: 251.359509
